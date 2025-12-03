@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>WRD WebVPN 转换器</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+        padding: 12px;
+        width: 300px;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      button {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+      button.full {
+        width: 100%;
+        display: block;
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+      input {
+        width: 100%;
+        padding: 6px;
+      }
+      label {
+        font-size: 12px;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <label>自定义基础 URL</label>
+      <div style="margin-top: 8px">
+        <div style="display: flex; gap: 8px; margin-top: 6px">
+          <input
+            id="baseUrl"
+            placeholder="https://..."
+            value="https://webvpn.xauat.edu.cn"
+            style="flex: 1; padding: 6px"
+          />
+          <button
+            id="btnSaveBaseUrl"
+            style="white-space: nowrap; flex: 0 0 auto; width: auto"
+          >
+            保存
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 12px">
+      <button id="btnConvert" class="full">跳转至 WebVPN</button>
+    </div>
+
+    <div style="margin-top: 12px">
+      <label>生成的 WebVPN URL</label>
+      <textarea
+        id="resultUrl"
+        rows="3"
+        readonly
+        style="width: 100%; padding: 6px; margin-top: 6px; resize: vertical"
+      ></textarea>
+      <div style="display: flex; gap: 8px; margin-top: 8px">
+        <button id="btnTransform">转换</button>
+        <button id="btnCopy">复制</button>
+        <button id="btnOpenNew">在新标签页打开</button>
+      </div>
+    </div>
+
+    <div id="message" style="margin-top: 10px; color: #b22222"></div>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>
