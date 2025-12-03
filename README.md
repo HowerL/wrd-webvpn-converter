@@ -1,6 +1,6 @@
 # WRD WebVPN Converter
 
-一个针对 Chromium 浏览器（如 Chrome/Edge）的扩展，用于把当前标签页的 URL 转换为 WRD WebVPN 可接受的加密 URL 并跳转。
+一个针对 Chromium 内核浏览器（如 Chrome/Edge）的扩展，用于把当前标签页的 URL 转换为 WRD WebVPN 可接受的加密 URL 并跳转。
 
 ## Quick Start
 
@@ -16,7 +16,7 @@ npm install
 npm run build-extension
 ```
 
-- **Load unpacked extension:** 在 Chrome 的扩展管理页开启开发者模式，选择 `extension/dist` 目录。
+- **Load unpacked extension:** 在扩展管理页开启开发者模式，选择 `extension/dist` 目录。
 
 ## 主要功能
 
@@ -31,5 +31,5 @@ npm run build-extension
 
 ## 运行环境
 
-- Node 版本 >= 22
-- 浏览器支持 Manifest V3 的 Chromium 内核（支持 module service workers）
+- Node.js >= 20
+- 支持 Manifest V3 扩展的 Chromium 内核浏览器
