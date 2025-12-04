@@ -1,6 +1,6 @@
 # WRD WebVPN Converter
 
-一个针对 Chromium 内核浏览器（如 Chrome / Microsoft Edge）的扩展，用于把当前标签页的 URL 转换为 WRD WebVPN 可接受的加密 URL 并跳转。
+一个针对 Chromium 内核浏览器（如 Chrome / Microsoft Edge）的扩展，用于把当前标签页的 URL 转换为 WRD WebVPN 可接受的加密 URL 并跳转。适用于北京网瑞达科技有限公司的资源访问控制网关（WebVPN）的产品。
 
 ## Quick Start
 
