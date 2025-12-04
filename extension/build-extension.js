@@ -55,6 +55,16 @@ async function build() {
     path.join(__dirname, "popup.html"),
     path.join(outdir, "popup.html")
   );
+  // copy privacy.html if present
+  const privacySrc = path.join(__dirname, "privacy.html");
+  if (fs.existsSync(privacySrc)) {
+    try {
+      fs.copyFileSync(privacySrc, path.join(outdir, "privacy.html"));
+      console.log("Copied privacy.html");
+    } catch (e) {
+      console.warn("Failed to copy privacy.html:", e && e.message);
+    }
+  }
   const manifestSrc = path.join(__dirname, "manifest.json");
   const manifestDst = path.join(outdir, "manifest.json");
   fs.copyFileSync(manifestSrc, manifestDst);

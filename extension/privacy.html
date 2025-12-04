@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>隐私政策</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto,
+          "Helvetica Neue", Arial;
+        margin: 24px;
+        color: #222;
+      }
+      h1 {
+        font-size: 1.4rem;
+        margin-bottom: 0.25rem;
+      }
+      p {
+        margin: 0.5rem 0;
+      }
+      section {
+        margin: 16px 0;
+        padding: 12px;
+        border-radius: 6px;
+        background: #f8f8f8;
+      }
+      code {
+        background: #eee;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>WRD WebVPN 转换器 | 隐私政策</h1>
+    <p style="color: #666; font-size: 0.95rem">
+      生效日期：<span id="effective">2025年12月4日</span>
+    </p>
+
+    <section>
+      <h2>简介</h2>
+      <p>
+        本隐私政策适用于 Chrome / Microsoft Edge 浏览器扩展
+        <strong>WRD WebVPN 转换器</strong
+        >（以下简称“本扩展”）。本政策说明本扩展如何收集、使用、存储和保护用户数据。
+      </p>
+    </section>
+
+    <section>
+      <h2>权限与用途</h2>
+      <p>本扩展用于实现功能请求的权限如下：</p>
+      <ul>
+        <li>
+          <strong>tabs</strong>：读取和更新当前选项卡的
+          URL，以便生成并跳转到对应的 WebVPN URL（仅在用户触发转换时使用）。
+        </li>
+        <li>
+          <strong>activeTab</strong
+          >：在用户与扩展交互时获取活动选项卡的临时访问权限，用于读取活动标签的
+          URL 并生成 WebVPN URL。
+        </li>
+        <li>
+          <strong>storage</strong>：使用
+          <code>chrome.storage.local</code> 保存用户的基础 URL
+          和设置，便于下一次使用时自动填充；此数据保存在用户本地浏览器扩展存储中。
+        </li>
+        <li>
+          <strong>contextMenus</strong>：在页面上创建右键菜单项“跳转至
+          WebVPN”，以便用户通过右键菜单触发 URL 转换。
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>我们收集哪些数据</h2>
+      <p>基于对扩展源码的审查，本扩展的行为如下：</p>
+      <ul>
+        <li>
+          本扩展在本地读取当前标签页的 URL（例如
+          <code>https://example.com/...</code>），并在本地使用内置的加密函数生成
+          WebVPN 路径，然后在用户选择时将当前选项卡跳转到生成的 WebVPN
+          URL。该处理逻辑全部在用户的浏览器内执行。
+        </li>
+        <li>
+          本扩展使用 <code>chrome.storage.local</code> 保存用户输入的 WebVPN
+          基础 URL（例如
+          <code>https://webvpn.xauat.edu.cn</code
+          >），以便下次使用时自动填充。仅保存用户明确输入的域名字符串。
+        </li>
+        <li>
+          本扩展不会向任何外部服务器发送当前标签页浏览内容或其他个人识别信息（PII）。源码中未包含网络请求或第三方分析/崩溃上报服务。
+        </li>
+        <li>
+          如果用户通过扩展的界面主动提供了电子邮箱或其它联系方式，则会在隐私政策中明确说明并征得同意后才会使用。
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>数据使用与共享</h2>
+      <p>
+        通过
+        <code>chrome.storage.local</code>
+        保存的基础 URL
+        存储在用户的浏览器扩展存储中。用户可以随时在扩展设置中修改或删除该值，或通过浏览器扩展管理界面卸载扩展以移除本地存储数据。
+      </p>
+      <p>
+        仅在用户明确启用或输入需共享的数据时，我们会在功能界面与隐私政策中明确告知并提供选择。
+      </p>
+      <p>
+        本扩展不会出售或出租用户数据。本扩展也不会将用户的 URL
+        或浏览内容传输到开发者服务器或第三方服务。
+      </p>
+    </section>
+
+    <section>
+      <h2>用户权利与安全</h2>
+      <p>
+        我们采取合理措施保护本扩展内部存储的数据安全，但无法保证任何数据在传输或存储过程中的绝对安全。
+      </p>
+      <p>
+        本扩展不针对儿童（13
+        岁以下或适用法律规定的更高年龄），我们不会在知晓的情况下有意收集未成年人的个人信息。
+      </p>
+      <p>
+        用户可通过 Chrome 应用商店 / Microsoft Edge
+        加载项中的联系信息联系我们，以行使访问、更正或删除数据的权利，或提出隐私相关问题。通常，我们将在收到请求后的
+        30 天内回复并处理相关请求。
+      </p>
+      <p>
+        我们可能会不时更新本隐私政策。重大变更时会在本页更新生效日期并在扩展描述或用户界面中提示用户。
+      </p>
+    </section>
+  </body>
+</html>

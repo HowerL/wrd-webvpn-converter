@@ -65,9 +65,7 @@ async function generateVpnUrl() {
     const rawBaseUrl = baseUrlInput || stored || "webvpn.xauat.edu.cn";
     const finalBaseUrl = normalizeBaseUrl(rawBaseUrl);
     if (!finalBaseUrl) {
-      setMessage(
-        "无效的基础 URL，请填写一个有效域名，例如: webvpn.xauat.edu.cn"
-      );
+      setMessage("无效的基础 URL，请填写一个有效域名");
       return "";
     }
     const finalUrl = finalBaseUrl + encryptedPath;
@@ -99,8 +97,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("btnSaveBaseUrl").addEventListener("click", () => {
     const v = document.getElementById("baseUrl").value || "";
     const normalized = normalizeBaseUrl(v);
-    if (!normalized)
-      return setMessage("请输入有效的基础 URL，例如: webvpn.xauat.edu.cn");
+    if (!normalized) return setMessage("请输入有效的基础 URL");
     chrome.storage.local.set({ [STORAGE_KEY]: normalized }, () => {
       setMessage("基础 URL 已保存", false);
       document.getElementById("baseUrl").value = normalized;
