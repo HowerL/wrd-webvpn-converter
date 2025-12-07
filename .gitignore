@@ -5,11 +5,12 @@
 
 # production
 /dist
+*.pem
+*.crx
 
 # misc
 .DS_Store
-*.pem
-*.crx
+/.vscode
 
 # debug
 npm-debug.log*
