@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <title data-zh="WRD WebVPN 转换器" data-en="WRD WebVPN Converter">
+      WRD WebVPN 转换器
+    </title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: #fff;
+      }
+
+      /* Header */
+      header {
+        position: sticky;
+        top: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        z-index: 1000;
+        padding: 1rem 0;
+      }
+
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #1e293b;
+        text-decoration: none;
+      }
+
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+      }
+
+      .browser-icon {
+        width: 24px;
+        height: 24px;
+        vertical-align: middle;
+      }
+
+      .lang-switch {
+        padding: 0.5rem 1rem;
+        border: 2px solid #2563eb;
+        border-radius: 20px;
+        background: white;
+        color: #2563eb;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        height: 40px;
+      }
+
+      .lang-switch:hover {
+        background: #2563eb;
+        color: white;
+      }
+
+      /* Hero Section */
+      .hero {
+        text-align: center;
+        padding: 6rem 2rem 4rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+      }
+
+      .hero p {
+        font-size: 1.25rem;
+        margin-bottom: 2.5rem;
+        opacity: 0.95;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .download-buttons {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-primary {
+        background: white;
+        color: #2563eb;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 2px solid white;
+      }
+
+      .btn-secondary:hover {
+        background: white;
+        color: #2563eb;
+        transform: translateY(-2px);
+      }
+
+      /* Features Section */
+      .features {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 5rem 2rem;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: #1e293b;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
+      }
+
+      .feature-card {
+        padding: 2rem;
+        border-radius: 15px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border-color: #2563eb;
+      }
+
+      .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .feature-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #1e293b;
+      }
+
+      .feature-card p {
+        color: #64748b;
+        line-height: 1.8;
+      }
+
+      /* Screenshots Section */
+      .screenshots {
+        background: #f8fafc;
+        padding: 5rem 2rem;
+      }
+
+      .screenshots-content {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .screenshot-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .screenshot-item {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .screenshot-item:hover {
+        transform: scale(1.02);
+      }
+
+      .screenshot-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      /* How to Use Section */
+      .how-to-use {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 5rem 2rem;
+      }
+
+      .steps {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .step {
+        display: flex;
+        gap: 2rem;
+        align-items: start;
+        padding: 2rem;
+        background: #f8fafc;
+        border-radius: 15px;
+        border-left: 4px solid #2563eb;
+      }
+
+      .step-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #2563eb;
+        min-width: 60px;
+      }
+
+      .step-content h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: #1e293b;
+      }
+
+      .step-content p {
+        color: #64748b;
+        line-height: 1.8;
+      }
+
+      /* Header Links */
+      .header-links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .privacy-link {
+        color: #64748b;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+      }
+
+      .privacy-link:hover {
+        color: #2563eb;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          gap: 1rem;
+          align-items: flex-start;
+        }
+
+        .header-links {
+          width: 100%;
+          justify-content: flex-start;
+        }
+
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .hero p {
+          font-size: 1rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .download-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .screenshot-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .step {
+          flex-direction: column;
+        }
+
+        .step-number {
+          font-size: 2rem;
+        }
+      }
+
+      /* Language specific content */
+      [lang="zh-CN"] .en-only,
+      [lang="en"] .zh-only {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="header-content">
+        <a href="#" class="logo">
+          <img src="favicon.png" alt="Logo" class="logo-icon" />
+          <span>
+            <span class="zh-only">WRD WebVPN 转换器</span>
+            <span class="en-only">WRD WebVPN Converter</span>
+          </span>
+        </a>
+        <div class="header-links">
+          <a href="privacy.html" class="privacy-link" target="_blank">
+            <span class="zh-only">隐私政策</span>
+            <span class="en-only">Privacy Policy</span>
+          </a>
+          <button class="lang-switch" onclick="toggleLanguage()">
+            <span class="zh-only">English</span>
+            <span class="en-only">中文</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>
+        <span class="zh-only">WRD WebVPN 转换器</span>
+        <span class="en-only">WRD WebVPN Converter</span>
+      </h1>
+      <p>
+        <span class="zh-only">转换当前标签页 URL 并跳转至 WebVPN</span>
+        <span class="en-only"
+          >Convert the current tab's URL and redirect to WebVPN.</span
+        >
+      </p>
+      <div class="download-buttons">
+        <a
+          href="https://chromewebstore.google.com/detail/wrd-webvpn-%E8%BD%AC%E6%8D%A2%E5%99%A8/ghjombjaionldgoakjkgbjfigginmahk"
+          class="btn btn-primary"
+          target="_blank"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            width="24"
+            viewBox="0 0 192 192"
+          >
+            <path d="M0 0h192v192H0z" fill="none" />
+            <defs>
+              <path
+                d="M8 20v140c0 6.6 5.4 12 12 12h152c6.6 0 12-5.4 12-12V20H8zm108 32H76c-4.42 0-8-3.58-8-8s3.58-8 8-8h40c4.42 0 8 3.58 8 8s-3.58 8-8 8z"
+                id="a"
+              />
+            </defs>
+            <clipPath id="b">
+              <use overflow="visible" xlink:href="#a" />
+            </clipPath>
+            <path clip-path="url(#b)" d="M8 20h176v152H8z" fill="#eee" />
+            <path
+              clip-path="url(#b)"
+              d="M116 36H76c-4.42 0-8 3.58-8 8s3.58 8 8 8h40c4.42 0 8-3.58 8-8s-3.58-8-8-8z"
+              fill="#fff"
+            />
+            <g clip-path="url(#b)">
+              <defs><circle cx="96" cy="160" id="c" r="76" /></defs>
+              <clipPath id="d">
+                <use overflow="visible" xlink:href="#c" />
+              </clipPath>
+              <path
+                clip-path="url(#d)"
+                d="M32.07 84v93.27h34.01L96 125.45h76V84zm0 0v93.27h34.01L96 125.45h76V84z"
+                fill="#DB4437"
+              />
+              <path
+                clip-path="url(#d)"
+                d="M20 236h72.34l33.58-33.58v-25.14l-59.84-.01L20 98.24zm0 0h72.34l33.58-33.58v-25.14l-59.84-.01L20 98.24z"
+                fill="#0F9D58"
+              />
+              <path
+                clip-path="url(#d)"
+                d="M96 125.45l29.92 51.82L92.35 236H172V125.45zm0 0l29.92 51.82L92.35 236H172V125.45z"
+                fill="#FFCD40"
+              />
+              <g clip-path="url(#d)">
+                <circle cx="96" cy="160" fill="#F1F1F1" r="34.55" />
+                <circle cx="96" cy="160" fill="#4285F4" r="27.64" />
+              </g>
+            </g>
+            <path
+              clip-path="url(#b)"
+              d="M8 20h176v76H8z"
+              fill="#212121"
+              fill-opacity=".05"
+            />
+            <path d="M8 95h176v1H8z" fill="#212121" fill-opacity=".02" />
+            <path d="M8 96h176v1H8z" fill="#fff" fill-opacity=".05" />
+            <path
+              d="M116 52H76c-4.25 0-7.72-3.32-7.97-7.5-.02.17-.03.33-.03.5 0 4.42 3.58 8 8 8h40c4.42 0 8-3.58 8-8 0-.17-.01-.33-.03-.5-.25 4.18-3.72 7.5-7.97 7.5zM8 20v1h176v-1H8z"
+              fill="#212121"
+              fill-opacity=".02"
+            />
+            <path
+              d="M76 36h40c4.25 0 7.72 3.32 7.97 7.5.01-.17.03-.33.03-.5 0-4.42-3.58-8-8-8H76c-4.42 0-8 3.58-8 8 0 .17.01.33.03.5.25-4.18 3.72-7.5 7.97-7.5zm96 135H20c-6.6 0-12-5.4-12-12v1c0 6.6 5.4 12 12 12h152c6.6 0 12-5.4 12-12v-1c0 6.6-5.4 12-12 12z"
+              fill="#231F20"
+              fill-opacity=".1"
+            />
+            <radialGradient
+              cx="7.502"
+              cy="19.344"
+              gradientUnits="userSpaceOnUse"
+              id="e"
+              r="227.596"
+            >
+              <stop offset="0" stop-color="#fff" stop-opacity=".1" />
+              <stop offset="1" stop-color="#fff" stop-opacity="0" />
+            </radialGradient>
+            <path
+              d="M8 20v140c0 6.6 5.4 12 12 12h152c6.6 0 12-5.4 12-12V20H8zm108 32H76c-4.42 0-8-3.58-8-8s3.58-8 8-8h40c4.42 0 8 3.58 8 8s-3.58 8-8 8z"
+              fill="url(#e)"
+            />
+          </svg>
+          <span class="zh-only">Chrome 应用商店</span>
+          <span class="en-only">Chrome Web Store</span>
+        </a>
+        <a
+          href="https://microsoftedge.microsoft.com/addons/detail/gkejpppjheiemamfpffhpfbonkbfbplg"
+          class="btn btn-primary"
+          target="_blank"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 72 72"
+            fill="none"
+          >
+            <path d="M34.2 0H0V34.2H34.2V0Z" fill="#f25022" />
+            <path d="M72.0008 0H37.8008V34.2H72.0008V0Z" fill="#7fba00" />
+            <path d="M34.2 37.7998H0V71.9998H34.2V37.7998Z" fill=" #00a4ef" />
+            <path
+              d="M72.0008 37.7998H37.8008V71.9998H72.0008V37.7998Z"
+              fill="#ffb900"
+            />
+          </svg>
+          <span class="zh-only">Edge 扩展商店</span>
+          <span class="en-only">Edge Add-ons Store</span>
+        </a>
+        <a
+          href="https://github.com/HowerL/wrd-webvpn-converter"
+          class="btn btn-secondary"
+          target="_blank"
+        >
+          <svg height="24" width="24" viewBox="0 0 24 24">
+            <path
+              d="M12 1C5.923 1 1 5.923 1 12c0 4.867 3.149 8.979 7.521 10.436.55.096.756-.233.756-.522 0-.262-.013-1.128-.013-2.049-2.764.509-3.479-.674-3.699-1.292-.124-.317-.66-1.293-1.127-1.554-.385-.207-.936-.715-.014-.729.866-.014 1.485.797 1.691 1.128.99 1.663 2.571 1.196 3.204.907.096-.715.385-1.196.701-1.471-2.448-.275-5.005-1.224-5.005-5.432 0-1.196.426-2.186 1.128-2.956-.111-.275-.496-1.402.11-2.915 0 0 .921-.288 3.024 1.128a10.193 10.193 0 0 1 2.75-.371c.936 0 1.871.123 2.75.371 2.104-1.43 3.025-1.128 3.025-1.128.605 1.513.221 2.64.111 2.915.701.77 1.127 1.747 1.127 2.956 0 4.222-2.571 5.157-5.019 5.432.399.344.743 1.004.743 2.035 0 1.471-.014 2.654-.014 3.025 0 .289.206.632.756.522C19.851 20.979 23 16.854 23 12c0-6.077-4.922-11-11-11Z"
+            ></path>
+          </svg>
+          Github
+        </a>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+      <h2 class="section-title">
+        <span class="zh-only">核心功能</span>
+        <span class="en-only">Key Features</span>
+      </h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔐</div>
+          <h3>
+            <span class="zh-only">智能加密转换</span>
+            <span class="en-only">Smart Encryption</span>
+          </h3>
+          <p>
+            <span class="zh-only"
+              >使用 AES 加密算法，自动将当前页面 URL 转换为 WebVPN
+              可接受的加密链接，安全可靠</span
+            >
+            <span class="en-only"
+              >Uses AES encryption algorithm to automatically convert current
+              page URL to WebVPN-compatible encrypted link, secure and
+              reliable</span
+            >
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>
+            <span class="zh-only">一键操作</span>
+            <span class="en-only">One-Click Operation</span>
+          </h3>
+          <p>
+            <span class="zh-only"
+              >点击扩展图标即可打开操作面板，支持快速跳转、复制链接或在新标签页打开，操作便捷高效</span
+            >
+            <span class="en-only"
+              >Click extension icon to open operation panel, supports quick
+              jump, copy link or open in new tab, convenient and efficient</span
+            >
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🖱️</div>
+          <h3>
+            <span class="zh-only">右键菜单支持</span>
+            <span class="en-only">Context Menu Support</span>
+          </h3>
+          <p>
+            <span class="zh-only"
+              >在页面右键即可看到"跳转至
+              WebVPN"选项，无需打开扩展窗口，直接在当前标签页跳转</span
+            >
+            <span class="en-only"
+              >Right-click on pages to see "Jump to WebVPN" option, no need to
+              open extension window, jump directly in current tab</span
+            >
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💾</div>
+          <h3>
+            <span class="zh-only">自定义配置</span>
+            <span class="en-only">Custom Configuration</span>
+          </h3>
+          <p>
+            <span class="zh-only"
+              >支持自定义配置 WebVPN 基础
+              URL，适配任何基于北京网瑞达科技有限公司的资源访问控制网关产品，配置信息持久化保存</span
+            >
+            <span class="en-only"
+              >Supports custom WebVPN baseURL configuration, adapts to any
+              WebVPN system based on Beijing WRD Technology Co., Ltd.'s resource
+              access control gateway products, configuration persistently
+              saved</span
+            >
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>
+            <span class="zh-only">兼容性强</span>
+            <span class="en-only">Strong Compatibility</span>
+          </h3>
+          <p>
+            <span class="zh-only"
+              >基于 Manifest V3 标准开发，支持所有 Chromium 内核浏览器，包括
+              Chrome、Edge 等</span
+            >
+            <span class="en-only"
+              >Developed based on Manifest V3 standard, supports all
+              Chromium-based browsers including Chrome, Edge, etc.</span
+            >
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>
+            <span class="zh-only">隐私保护</span>
+            <span class="en-only">Privacy Protection</span>
+          </h3>
+          <p>
+            <span class="zh-only"
+              >所有处理均在本地完成，不上传任何数据到服务器，保障您的隐私安全</span
+            >
+            <span class="en-only"
+              >All processing is done locally, no data uploaded to servers,
+              ensuring your privacy and security</span
+            >
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section class="screenshots">
+      <div class="screenshots-content">
+        <h2 class="section-title">
+          <span class="zh-only">功能展示</span>
+          <span class="en-only">Screenshots</span>
+        </h2>
+        <div class="screenshot-grid">
+          <div class="screenshot-item">
+            <img src="screenshot-1.png" alt="Extension Popup Interface" />
+            <div style="padding: 1rem; background: white">
+              <h3 style="margin-bottom: 0.5rem; color: #1e293b">
+                <span class="zh-only">弹窗界面</span>
+                <span class="en-only">Popup Interface</span>
+              </h3>
+              <p style="color: #64748b">
+                <span class="zh-only"
+                  >简洁直观的操作面板，支持多种操作方式</span
+                >
+                <span class="en-only"
+                  >Clean and intuitive popup interface with multiple
+                  options</span
+                >
+              </p>
+            </div>
+          </div>
+          <div class="screenshot-item">
+            <img src="screenshot-2.png" alt="Context Menu" />
+            <div style="padding: 1rem; background: white">
+              <h3 style="margin-bottom: 0.5rem; color: #1e293b">
+                <span class="zh-only">右键菜单</span>
+                <span class="en-only">Context Menu</span>
+              </h3>
+              <p style="color: #64748b">
+                <span class="zh-only"
+                  >快捷的右键菜单，两步快速跳转至 WebVPN</span
+                >
+                <span class="en-only"
+                  >Quick context menu, jump to WebVPN with two click</span
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Use Section -->
+    <section class="how-to-use">
+      <h2 class="section-title">
+        <span class="zh-only">使用指南</span>
+        <span class="en-only">How to Use</span>
+      </h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>
+              <span class="zh-only">安装扩展</span>
+              <span class="en-only">Install Extension</span>
+            </h3>
+            <p>
+              <span class="zh-only"
+                >从 Chrome 应用商店 或 Edge 扩展商店 安装 WRD WebVPN
+                转换器扩展到您的浏览器</span
+              >
+              <span class="en-only"
+                >Install WRD WebVPN Converter extension from Chrome Web Store or
+                Edge Add-ons Store to your browser</span
+              >
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>
+              <span class="zh-only">配置基础 URL</span>
+              <span class="en-only">Configure BaseURL</span>
+            </h3>
+            <p>
+              <span class="zh-only"
+                >首次使用时，在扩展弹窗中输入您机构的 WebVPN 基础
+                URL（例如：https://webvpn.xauat.edu.cn）</span
+              >
+              <span class="en-only"
+                >On first use, enter your institution's WebVPN baseURL in the
+                extension popup (e.g., https://webvpn.xauat.edu.cn)</span
+              >
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>
+              <span class="zh-only">转换并访问</span>
+              <span class="en-only">Convert and Access</span>
+            </h3>
+            <p>
+              <span class="zh-only"
+                >访问需要通过 WebVPN
+                访问的网页，点击扩展图标或右键菜单，选择"跳转至
+                WebVPN"即可自动转换并跳转</span
+              >
+              <span class="en-only"
+                >Visit the webpage that needs WebVPN access, click extension
+                icon or context menu, select "Jump to WebVPN" to automatically
+                convert and jump</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Update page title based on language
+      function updateTitle(lang) {
+        const titleElement = document.querySelector("title");
+        if (lang === "zh-CN") {
+          titleElement.textContent = titleElement.getAttribute("data-zh");
+        } else {
+          titleElement.textContent = titleElement.getAttribute("data-en");
+        }
+      }
+
+      // Language toggle functionality
+      function toggleLanguage() {
+        const html = document.documentElement;
+        const currentLang = html.getAttribute("lang");
+        const newLang = currentLang === "zh-CN" ? "en" : "zh-CN";
+        html.setAttribute("lang", newLang);
+        localStorage.setItem("preferredLanguage", newLang);
+        updateTitle(newLang);
+      }
+
+      // Load saved language preference
+      window.addEventListener("DOMContentLoaded", () => {
+        const savedLang = localStorage.getItem("preferredLanguage");
+        if (savedLang) {
+          document.documentElement.setAttribute("lang", savedLang);
+          updateTitle(savedLang);
+        }
+      });
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -134,16 +134,6 @@ async function build() {
     path.join(extensionDir, "popup.html"),
     path.join(outdir, "popup.html")
   );
-  // copy privacy.html if present
-  const privacySrc = path.join(extensionDir, "privacy.html");
-  if (fs.existsSync(privacySrc)) {
-    try {
-      fs.copyFileSync(privacySrc, path.join(outdir, "privacy.html"));
-      console.log("Copied privacy.html");
-    } catch (e) {
-      console.warn("Failed to copy privacy.html:", e && e.message);
-    }
-  }
   const manifestSrc = path.join(extensionDir, "manifest.json");
   const manifestDst = path.join(outdir, "manifest.json");
   fs.copyFileSync(manifestSrc, manifestDst);
@@ -169,7 +159,7 @@ async function build() {
     console.warn("Failed to parse manifest for icons:", e.message);
   }
 
-  // also copy any files in an `icons/` directory if present
+  /* also copy any files in an `icons/` directory if present
   const iconsDir = path.join(extensionDir, "icons");
   if (fs.existsSync(iconsDir) && fs.lstatSync(iconsDir).isDirectory()) {
     const files = fs.readdirSync(iconsDir);
@@ -182,6 +172,7 @@ async function build() {
       console.log("Copied icons/", f);
     }
   }
+  */
 
   // zip the dist into dist/extension.zip (placed inside outdir)
   const zipPath = path.join(outdir, "extension.zip");
