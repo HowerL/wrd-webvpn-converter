@@ -16,7 +16,7 @@ npm install
 npm run build-extension
 ```
 
-- **Load unpacked extension:** 在扩展管理页开启开发者模式，选择 `extension/dist` 目录。
+- **Load unpacked extension:** 在扩展管理页开启开发者模式，选择 `dist` 目录。
 
 ## 主要功能
 

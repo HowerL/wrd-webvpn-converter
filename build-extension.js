@@ -1,12 +1,91 @@
-// Bundles the extension popup (including aes-js and convert.js) into `extension/dist`
+// Bundles the extension popup (including aes-js and convert.js) into `dist`
 
 const esbuild = require("esbuild");
 const fs = require("fs");
 const path = require("path");
 const archiver = require("archiver");
 
+/**
+ * Compare two semver version strings and return the larger one
+ * @param {string} v1 - First version string (e.g., "1.2.3")
+ * @param {string} v2 - Second version string (e.g., "1.2.4")
+ * @returns {string} The larger version string
+ */
+function getMaxVersion(v1, v2) {
+  const parts1 = v1.split(".").map(Number);
+  const parts2 = v2.split(".").map(Number);
+
+  for (let i = 0; i < Math.max(parts1.length, parts2.length); i++) {
+    const num1 = parts1[i] || 0;
+    const num2 = parts2[i] || 0;
+    if (num1 > num2) return v1;
+    if (num2 > num1) return v2;
+  }
+
+  return v1; // versions are equal
+}
+
+/**
+ * Synchronize version numbers between package.json and manifest.json
+ * Takes the larger version and updates both files
+ */
+function syncVersions() {
+  const packagePath = path.join(__dirname, "package.json");
+  const manifestPath = path.join(__dirname, "extension", "manifest.json");
+
+  // Read both files
+  const packageJson = JSON.parse(fs.readFileSync(packagePath, "utf8"));
+  const manifestJson = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+
+  const packageVersion = packageJson.version || "0.0.0";
+  const manifestVersion = manifestJson.version || "0.0.0";
+
+  console.log(
+    `Current versions - package.json: ${packageVersion}, manifest.json: ${manifestVersion}`
+  );
+
+  // Get the larger version
+  const maxVersion = getMaxVersion(packageVersion, manifestVersion);
+
+  if (maxVersion !== packageVersion || maxVersion !== manifestVersion) {
+    console.log(`Syncing both files to version ${maxVersion}`);
+
+    // Update package.json if needed
+    if (packageVersion !== maxVersion) {
+      packageJson.version = maxVersion;
+      fs.writeFileSync(
+        packagePath,
+        JSON.stringify(packageJson, null, 2) + "\n",
+        "utf8"
+      );
+      console.log(`Updated package.json version to ${maxVersion}`);
+    }
+
+    // Update manifest.json if needed
+    if (manifestVersion !== maxVersion) {
+      manifestJson.version = maxVersion;
+      fs.writeFileSync(
+        manifestPath,
+        JSON.stringify(manifestJson, null, 2) + "\n",
+        "utf8"
+      );
+      console.log(`Updated manifest.json version to ${maxVersion}`);
+    }
+  } else {
+    console.log(`Versions are already in sync at ${maxVersion}`);
+  }
+
+  return maxVersion;
+}
+
 async function build() {
+  // Sync versions before building
+  const version = syncVersions();
+  console.log(`Building extension version ${version}\n`);
+
   const outdir = path.join(__dirname, "dist");
+  const extensionDir = path.join(__dirname, "extension");
+
   // ensure a clean output directory: remove existing `dist` and recreate it
   if (fs.existsSync(outdir)) {
     try {
@@ -39,8 +118,8 @@ async function build() {
   console.log("Bundling popup and background with esbuild...");
   await esbuild.build({
     entryPoints: [
-      path.join(__dirname, "popup.js"),
-      path.join(__dirname, "background.js"),
+      path.join(extensionDir, "popup.js"),
+      path.join(extensionDir, "background.js"),
     ],
     bundle: true,
     minify: true,
@@ -52,11 +131,11 @@ async function build() {
 
   // copy popup.html and manifest.json (and any other static files)
   fs.copyFileSync(
-    path.join(__dirname, "popup.html"),
+    path.join(extensionDir, "popup.html"),
     path.join(outdir, "popup.html")
   );
   // copy privacy.html if present
-  const privacySrc = path.join(__dirname, "privacy.html");
+  const privacySrc = path.join(extensionDir, "privacy.html");
   if (fs.existsSync(privacySrc)) {
     try {
       fs.copyFileSync(privacySrc, path.join(outdir, "privacy.html"));
@@ -65,7 +144,7 @@ async function build() {
       console.warn("Failed to copy privacy.html:", e && e.message);
     }
   }
-  const manifestSrc = path.join(__dirname, "manifest.json");
+  const manifestSrc = path.join(extensionDir, "manifest.json");
   const manifestDst = path.join(outdir, "manifest.json");
   fs.copyFileSync(manifestSrc, manifestDst);
 
@@ -76,7 +155,7 @@ async function build() {
       for (const key of Object.keys(manifest.icons)) {
         const iconPath = manifest.icons[key];
         if (!iconPath) continue;
-        const srcIcon = path.join(__dirname, iconPath);
+        const srcIcon = path.join(extensionDir, iconPath);
         const dstIcon = path.join(outdir, iconPath);
         if (fs.existsSync(srcIcon)) {
           const dstDir = path.dirname(dstIcon);
@@ -91,7 +170,7 @@ async function build() {
   }
 
   // also copy any files in an `icons/` directory if present
-  const iconsDir = path.join(__dirname, "icons");
+  const iconsDir = path.join(extensionDir, "icons");
   if (fs.existsSync(iconsDir) && fs.lstatSync(iconsDir).isDirectory()) {
     const files = fs.readdirSync(iconsDir);
     for (const f of files) {

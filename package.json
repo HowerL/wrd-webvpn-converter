@@ -1,9 +1,9 @@
 {
   "name": "wrd-webvpn-converter",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
-    "build-extension": "node extension/build-extension.js"
+    "build-extension": "node build-extension.js"
   },
   "dependencies": {
     "aes-js": "^3.1.2"

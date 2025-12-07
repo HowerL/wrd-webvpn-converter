@@ -8,8 +8,13 @@
     "48": "icons/favicon-48x48.png",
     "128": "icons/favicon-128x128.png"
   },
-  "version": "0.1.0",
-  "permissions": ["tabs", "storage", "activeTab", "contextMenus"],
+  "version": "0.2.0",
+  "permissions": [
+    "tabs",
+    "storage",
+    "activeTab",
+    "contextMenus"
+  ],
   "background": {
     "service_worker": "background.js",
     "type": "module"
