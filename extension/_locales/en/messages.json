@@ -39,9 +39,9 @@
     "message": "Open in New Tab",
     "description": "Button to open URL in new tab"
   },
-  "privacyPolicy": {
-    "message": "Privacy Policy",
-    "description": "Privacy policy link text"
+  "projectPage": {
+    "message": "Github",
+    "description": "Project page link text"
   },
   "msgCannotGetUrl": {
     "message": "Cannot get the current tab's URL",

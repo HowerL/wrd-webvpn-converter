@@ -71,6 +71,16 @@ function syncVersions() {
       );
       console.log(`Updated manifest.json version to ${maxVersion}`);
     }
+
+    // Run npm install to update package-lock.json since version was updated
+    console.log("\nRunning npm install to update package-lock.json...");
+    const { execSync } = require("child_process");
+    try {
+      execSync("npm install", { stdio: "inherit", cwd: __dirname });
+      console.log("Successfully updated package-lock.json\n");
+    } catch (e) {
+      console.warn("Warning: npm install failed:", e.message);
+    }
   } else {
     console.log(`Versions are already in sync at ${maxVersion}`);
   }

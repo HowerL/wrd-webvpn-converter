@@ -39,9 +39,9 @@
     "message": "在新标签页打开",
     "description": "在新标签页打开 URL 的按钮"
   },
-  "privacyPolicy": {
-    "message": "隐私政策",
-    "description": "隐私政策链接文本"
+  "projectPage": {
+    "message": "Github",
+    "description": "项目页面链接文本"
   },
   "msgCannotGetUrl": {
     "message": "无法获取当前标签页 URL",
