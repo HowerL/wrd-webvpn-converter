@@ -2,6 +2,27 @@ import { encryptUrl } from "./convert.js";
 
 const STORAGE_KEY = "baseURL";
 
+// i18n helper
+function i18n(key) {
+  return chrome.i18n.getMessage(key) || key;
+}
+
+// apply i18n to page
+function applyI18n() {
+  // elements with data-i18n attribute
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    el.textContent = i18n(key);
+  });
+  // elements with data-i18n-placeholder attribute
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    el.placeholder = i18n(key);
+  });
+  // page title
+  document.title = i18n("extName");
+}
+
 function normalizeBaseUrl(p) {
   if (!p) return "";
   p = String(p).trim();
@@ -23,8 +44,8 @@ function setMessage(text, isError = true) {
 function copyToClipboard(text) {
   navigator.clipboard
     .writeText(text)
-    .then(() => setMessage("已复制到剪贴板", false))
-    .catch((e) => setMessage("复制失败: " + String(e)));
+    .then(() => setMessage(i18n("msgCopiedToClipboard"), false))
+    .catch((e) => setMessage(i18n("msgCopyFailed") + ": " + String(e)));
 }
 
 function showResult(url) {
@@ -45,12 +66,12 @@ async function generateVpnUrl() {
   try {
     const url = await getCurrentTabUrl();
     if (!url) {
-      setMessage("无法获取当前标签页 URL");
+      setMessage(i18n("msgCannotGetUrl"));
       return;
     }
     // refuse non-http/https protocols
     if (!isHttpOrHttps(url)) {
-      setMessage("当前标签页不是 http(s) 协议，无法生成 WebVPN URL。", true);
+      setMessage(i18n("msgNotHttpProtocol"), true);
       return "";
     }
     const encryptedPath = encryptUrl(url);
@@ -65,7 +86,7 @@ async function generateVpnUrl() {
     const rawBaseUrl = baseUrlInput || stored || "webvpn.xauat.edu.cn";
     const finalBaseUrl = normalizeBaseUrl(rawBaseUrl);
     if (!finalBaseUrl) {
-      setMessage("无效的基础 URL，请填写一个有效域名");
+      setMessage(i18n("msgInvalidBaseUrl"));
       return "";
     }
     const finalUrl = finalBaseUrl + encryptedPath;
@@ -73,12 +94,15 @@ async function generateVpnUrl() {
     setMessage("", false);
     return finalUrl;
   } catch (err) {
-    setMessage("加密失败: " + String(err));
+    setMessage(i18n("msgEncryptFailed") + ": " + String(err));
     return "";
   }
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  // apply i18n translations
+  applyI18n();
+
   // show current URL on load
   const url = await getCurrentTabUrl();
   // disable/enable buttons depending on protocol of current tab
@@ -97,14 +121,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("btnSaveBaseUrl").addEventListener("click", () => {
     const v = document.getElementById("baseUrl").value || "";
     const normalized = normalizeBaseUrl(v);
-    if (!normalized) return setMessage("请输入有效的基础 URL");
+    if (!normalized) return setMessage(i18n("msgEnterValidBaseUrl"));
     chrome.storage.local.set({ [STORAGE_KEY]: normalized }, () => {
-      setMessage("基础 URL 已保存", false);
+      setMessage(i18n("msgBaseUrlSaved"), false);
       document.getElementById("baseUrl").value = normalized;
     });
   });
 
-  document.getElementById("btnConvert").addEventListener("click", async () => {
+  document.getElementById("btnRedirect").addEventListener("click", async () => {
     const finalUrl = await generateVpnUrl();
     if (finalUrl) {
       // redirect current tab to VPN URL
@@ -115,10 +139,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // transform-only: generate VPN URL but do not open it
-  const btnTransformEl = document.getElementById("btnTransform");
-  if (btnTransformEl) {
-    btnTransformEl.addEventListener("click", async () => {
+  // convert-only: generate VPN URL but do not open it
+  const btnConvertEl = document.getElementById("btnConvertOnly");
+  if (btnConvertEl) {
+    btnConvertEl.addEventListener("click", async () => {
       const finalUrl = await generateVpnUrl();
       if (finalUrl) {
         setMessage("", false);
@@ -128,13 +152,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.getElementById("btnCopy").addEventListener("click", () => {
     const v = document.getElementById("resultUrl").value;
-    if (!v) return setMessage("没有生成的 WebVPN URL");
+    if (!v) return setMessage(i18n("msgNoGeneratedUrl"));
     copyToClipboard(v);
   });
 
   document.getElementById("btnOpenNew").addEventListener("click", () => {
     const v = document.getElementById("resultUrl").value;
-    if (!v) return setMessage("没有生成的 WebVPN URL");
+    if (!v) return setMessage(i18n("msgNoGeneratedUrl"));
     chrome.tabs.create({ url: v });
   });
 });
@@ -146,16 +170,16 @@ function isHttpOrHttps(u) {
 
 function updateUiForUrl(u) {
   const disabled = !isHttpOrHttps(u);
-  const btnConvert = document.getElementById("btnConvert");
-  const btnTransform = document.getElementById("btnTransform");
+  const btnRedirect = document.getElementById("btnRedirect");
+  const btnConvertOnly = document.getElementById("btnConvertOnly");
   const btnCopy = document.getElementById("btnCopy");
   const btnOpenNew = document.getElementById("btnOpenNew");
-  if (btnConvert) btnConvert.disabled = disabled;
-  if (btnTransform) btnTransform.disabled = disabled;
+  if (btnRedirect) btnRedirect.disabled = disabled;
+  if (btnConvertOnly) btnConvertOnly.disabled = disabled;
   if (btnCopy) btnCopy.disabled = disabled;
   if (btnOpenNew) btnOpenNew.disabled = disabled;
   if (disabled) {
-    setMessage("当前标签页不是 http(s) 协议，无法生成 WebVPN URL。", true);
+    setMessage(i18n("msgNotHttpProtocol"), true);
   } else {
     setMessage("", false);
   }

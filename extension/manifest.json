@@ -1,26 +1,22 @@
 {
   "manifest_version": 3,
-  "name": "WRD WebVPN 转换器",
-  "description": "转换当前标签页 URL 并跳转至 WebVPN",
+  "name": "__MSG_extName__",
+  "description": "__MSG_extDescription__",
+  "default_locale": "zh_CN",
   "icons": {
     "16": "icons/favicon-16x16.png",
     "32": "icons/favicon-32x32.png",
     "48": "icons/favicon-48x48.png",
     "128": "icons/favicon-128x128.png"
   },
-  "version": "0.2.0",
-  "permissions": [
-    "tabs",
-    "storage",
-    "activeTab",
-    "contextMenus"
-  ],
+  "version": "1.0.0",
+  "permissions": ["tabs", "storage", "activeTab", "contextMenus"],
   "background": {
     "service_worker": "background.js",
     "type": "module"
   },
   "action": {
-    "default_title": "转换为 WebVPN URL",
+    "default_title": "__MSG_extActionTitle__",
     "default_icon": "icons/favicon-32x32.png",
     "default_popup": "popup.html"
   }

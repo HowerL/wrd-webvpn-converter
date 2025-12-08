@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>WRD WebVPN 转换器</title>
+    <title data-i18n="extName"></title>
     <style>
       body {
         font-family: system-ui, -apple-system, "Segoe UI", Roboto,
@@ -40,7 +40,7 @@
   </head>
   <body>
     <div>
-      <label>自定义基础 URL</label>
+      <label data-i18n="labelCustomBaseUrl"></label>
       <div style="margin-top: 8px">
         <div style="display: flex; gap: 8px; margin-top: 6px">
           <input
@@ -52,19 +52,22 @@
           <button
             id="btnSaveBaseUrl"
             style="white-space: nowrap; flex: 0 0 auto; width: auto"
-          >
-            保存
-          </button>
+            data-i18n="btnSave"
+          ></button>
         </div>
       </div>
     </div>
 
     <div style="margin-top: 12px">
-      <button id="btnConvert" class="full">跳转至 WebVPN</button>
+      <button
+        id="btnRedirect"
+        class="full"
+        data-i18n="btnRedirectToWebVPN"
+      ></button>
     </div>
 
     <div style="margin-top: 12px">
-      <label>生成的 WebVPN URL</label>
+      <label data-i18n="labelGeneratedUrl"></label>
       <textarea
         id="resultUrl"
         rows="3"
@@ -72,9 +75,9 @@
         style="width: 100%; padding: 6px; margin-top: 6px; resize: vertical"
       ></textarea>
       <div style="display: flex; gap: 8px; margin-top: 8px">
-        <button id="btnTransform">转换</button>
-        <button id="btnCopy">复制</button>
-        <button id="btnOpenNew">在新标签页打开</button>
+        <button id="btnConvertOnly" data-i18n="btnConvertOnly"></button>
+        <button id="btnCopy" data-i18n="btnCopy"></button>
+        <button id="btnOpenNew" data-i18n="btnOpenNewTab"></button>
       </div>
     </div>
 
@@ -87,8 +90,8 @@
         target="_blank"
         rel="noopener"
         style="color: inherit; text-decoration: underline"
-        >隐私政策</a
-      >
+        data-i18n="privacyPolicy"
+      ></a>
     </div>
 
     <script type="module" src="popup.js"></script>

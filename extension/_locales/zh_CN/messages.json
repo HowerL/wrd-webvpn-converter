@@ -1,0 +1,86 @@
+{
+  "extName": {
+    "message": "WRD WebVPN 转换器",
+    "description": "扩展名称"
+  },
+  "extDescription": {
+    "message": "转换当前标签页 URL 并跳转至 WebVPN",
+    "description": "扩展描述"
+  },
+  "extActionTitle": {
+    "message": "转换为 WebVPN URL",
+    "description": "扩展操作按钮标题"
+  },
+  "labelCustomBaseUrl": {
+    "message": "自定义基础 URL",
+    "description": "自定义基础 URL 输入框标签"
+  },
+  "btnSave": {
+    "message": "保存",
+    "description": "保存按钮"
+  },
+  "btnRedirectToWebVPN": {
+    "message": "跳转至 WebVPN",
+    "description": "转换并跳转到 WebVPN 的按钮"
+  },
+  "labelGeneratedUrl": {
+    "message": "生成的 WebVPN URL",
+    "description": "生成的 URL 文本框标签"
+  },
+  "btnConvertOnly": {
+    "message": "转换",
+    "description": "转换 URL 的按钮"
+  },
+  "btnCopy": {
+    "message": "复制",
+    "description": "复制按钮"
+  },
+  "btnOpenNewTab": {
+    "message": "在新标签页打开",
+    "description": "在新标签页打开 URL 的按钮"
+  },
+  "privacyPolicy": {
+    "message": "隐私政策",
+    "description": "隐私政策链接文本"
+  },
+  "msgCannotGetUrl": {
+    "message": "无法获取当前标签页 URL",
+    "description": "无法获取标签页 URL 时的错误消息"
+  },
+  "msgNotHttpProtocol": {
+    "message": "当前标签页不是 http(s) 协议，无法生成 WebVPN URL",
+    "description": "非 http(s) 协议的错误消息"
+  },
+  "msgInvalidBaseUrl": {
+    "message": "无效的基础 URL，请填写一个有效域名",
+    "description": "无效基础 URL 的错误消息"
+  },
+  "msgEncryptFailed": {
+    "message": "加密失败",
+    "description": "加密失败时的错误消息"
+  },
+  "msgCopiedToClipboard": {
+    "message": "已复制到剪贴板",
+    "description": "复制成功时的消息"
+  },
+  "msgCopyFailed": {
+    "message": "复制失败",
+    "description": "复制失败时的错误消息"
+  },
+  "msgEnterValidBaseUrl": {
+    "message": "请输入有效的基础 URL",
+    "description": "基础 URL 验证消息"
+  },
+  "msgBaseUrlSaved": {
+    "message": "基础 URL 已保存",
+    "description": "基础 URL 保存成功时的消息"
+  },
+  "msgNoGeneratedUrl": {
+    "message": "未生成 WebVPN URL",
+    "description": "未生成 URL 时的错误消息"
+  },
+  "contextMenuTitle": {
+    "message": "跳转至 WebVPN",
+    "description": "右键菜单项标题"
+  }
+}

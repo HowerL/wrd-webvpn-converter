@@ -159,6 +159,32 @@ async function build() {
     console.warn("Failed to parse manifest for icons:", e.message);
   }
 
+  // copy _locales directory for i18n support
+  const localesDir = path.join(extensionDir, "_locales");
+  if (fs.existsSync(localesDir) && fs.lstatSync(localesDir).isDirectory()) {
+    console.log("Copying _locales directory for i18n...");
+    const copyDirRecursive = (src, dest) => {
+      if (!fs.existsSync(dest)) {
+        fs.mkdirSync(dest, { recursive: true });
+      }
+      const entries = fs.readdirSync(src, { withFileTypes: true });
+      for (const entry of entries) {
+        const srcPath = path.join(src, entry.name);
+        const destPath = path.join(dest, entry.name);
+        if (entry.isDirectory()) {
+          copyDirRecursive(srcPath, destPath);
+        } else {
+          fs.copyFileSync(srcPath, destPath);
+          console.log(
+            `Copied locale file: _locales/${path.relative(localesDir, srcPath)}`
+          );
+        }
+      }
+    };
+    const localesDest = path.join(outdir, "_locales");
+    copyDirRecursive(localesDir, localesDest);
+  }
+
   /* also copy any files in an `icons/` directory if present
   const iconsDir = path.join(extensionDir, "icons");
   if (fs.existsSync(iconsDir) && fs.lstatSync(iconsDir).isDirectory()) {

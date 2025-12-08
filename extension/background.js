@@ -29,7 +29,7 @@ chrome.runtime.onInstalled.addListener(() => {
   try {
     chrome.contextMenus.create({
       id: "convert-vpn",
-      title: "跳转至 WebVPN",
+      title: chrome.i18n.getMessage("contextMenuTitle"),
       contexts: ["page"],
       documentUrlPatterns: ["http://*/*", "https://*/*"],
     });

@@ -1,0 +1,86 @@
+{
+  "extName": {
+    "message": "WRD WebVPN Converter",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Convert the current tab's URL and redirect to WebVPN",
+    "description": "Extension description"
+  },
+  "extActionTitle": {
+    "message": "Convert to WebVPN URL",
+    "description": "Extension action button title"
+  },
+  "labelCustomBaseUrl": {
+    "message": "Custom baseURL",
+    "description": "Label for custom baseURL input"
+  },
+  "btnSave": {
+    "message": "Save",
+    "description": "Button to Save"
+  },
+  "btnRedirectToWebVPN": {
+    "message": "Redirect to WebVPN",
+    "description": "Button to convert and redirect to WebVPN"
+  },
+  "labelGeneratedUrl": {
+    "message": "Generated WebVPN URL",
+    "description": "Label for generated URL textarea"
+  },
+  "btnConvertOnly": {
+    "message": "Convert",
+    "description": "Button to convert URL only"
+  },
+  "btnCopy": {
+    "message": "Copy",
+    "description": "Button to copy URL to clipboard"
+  },
+  "btnOpenNewTab": {
+    "message": "Open in New Tab",
+    "description": "Button to open URL in new tab"
+  },
+  "privacyPolicy": {
+    "message": "Privacy Policy",
+    "description": "Privacy policy link text"
+  },
+  "msgCannotGetUrl": {
+    "message": "Cannot get the current tab's URL",
+    "description": "Error message when cannot get tab URL"
+  },
+  "msgNotHttpProtocol": {
+    "message": "Current tab is not http(s) protocol, cannot generate WebVPN URL",
+    "description": "Error message for non-http(s) protocol"
+  },
+  "msgInvalidBaseUrl": {
+    "message": "Invalid baseURL, please enter a valid domain",
+    "description": "Error message for invalid baseURL"
+  },
+  "msgEncryptFailed": {
+    "message": "Encryption failed",
+    "description": "Error message when encryption fails"
+  },
+  "msgCopiedToClipboard": {
+    "message": "Copied to clipboard",
+    "description": "Success message when copied"
+  },
+  "msgCopyFailed": {
+    "message": "Copy failed",
+    "description": "Error message when copy fails"
+  },
+  "msgEnterValidBaseUrl": {
+    "message": "Please enter a valid baseURL",
+    "description": "Validation message for baseURL"
+  },
+  "msgBaseUrlSaved": {
+    "message": "baseURL saved",
+    "description": "Success message when baseURL is saved"
+  },
+  "msgNoGeneratedUrl": {
+    "message": "No generated WebVPN URL",
+    "description": "Error message when no URL is generated"
+  },
+  "contextMenuTitle": {
+    "message": "Redirect to WebVPN",
+    "description": "Context menu item title"
+  }
+}
